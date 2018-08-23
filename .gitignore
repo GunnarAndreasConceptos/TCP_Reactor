@@ -1,0 +1,3 @@
+bin/*
+obj/*
+test_TCP_Reactor/build/*
