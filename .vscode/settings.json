@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "cstdlib": "c",
+        "error.h": "c",
+        "socket.h": "c",
+        "unistd.h": "c",
+        "in.h": "c",
+        "stdio.h": "c"
+    }
+}
