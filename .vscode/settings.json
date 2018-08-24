@@ -5,6 +5,8 @@
         "socket.h": "c",
         "unistd.h": "c",
         "in.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "type_traits": "c",
+        "stdlib.h": "c"
     }
 }
