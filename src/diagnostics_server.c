@@ -1,11 +1,12 @@
 #include "diagnostics_server.h"
+#include "handle.h"
 
 #include <stdlib.h>
 
 struct DiagnosticsServer
 {
+    Handle listeningSocket;
     //TODO: Add rest of the struct
-    int Port;
 };
 
 DiagnosticsServerPtr createServer(unsigned int tcpPort)
@@ -16,16 +17,9 @@ DiagnosticsServerPtr createServer(unsigned int tcpPort)
     {
         return newServer;
     }
-
-    newServer->Port = tcpPort;
 }
 
-void destroyServer(DiagnosticsServerPtr* server)
+void destroyServer(DiagnosticsServerPtr server)
 {
-    if (server != NULL)
-    {
-        free(*server);
-        //We do this so that destroyServer is testable
-        *server = NULL;
-    }
+    free(server);
 }

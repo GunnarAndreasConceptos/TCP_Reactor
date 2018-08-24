@@ -8,5 +8,5 @@ typedef struct DiagnosticsServer* DiagnosticsServerPtr;
 DiagnosticsServerPtr createServer(unsigned int tcpPort);
 
 //Send in pointer of pointer so that we can NULL the pointer and test that it actually has been NULLed
-void destroyServer(DiagnosticsServerPtr* server);
+void destroyServer(DiagnosticsServerPtr server);
 #endif
