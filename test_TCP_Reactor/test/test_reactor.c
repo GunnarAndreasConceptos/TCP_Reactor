@@ -29,7 +29,7 @@ static Handle mock_GetHandleFunc(void *instance)
 }
 
 //Implementation of eventhandle handleEventFunc
-static Handle mock_HandleEvent(void *instance)
+static void mock_HandleEvent(void *instance)
 {
     MockData* data = instance;
     data->value++;

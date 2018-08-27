@@ -1,5 +1,6 @@
 #include "diagnostics_client.h"
 #include "event_handler.h"
+#include "reactor.h"
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -60,8 +61,9 @@ DiagnosticsClientPtr createClient(Handle server_handle, const ServerEventNotifie
         client->event_handler.get_handle = getClientSocket;
         client->event_handler.handle_event = handleReadEvent;
 
-        //TODO: Register event handler
         client->event_notifier = *event_notifier;
+
+        Register(&client->event_handler);
     }
 
     return client;
@@ -69,7 +71,7 @@ DiagnosticsClientPtr createClient(Handle server_handle, const ServerEventNotifie
 
 void destroyClient(DiagnosticsClientPtr client)
 {
-    //TODO: Unregister
+    Unregister(&client->event_handler);
     close(client->client_socket);
     free(client);
 }
@@ -85,7 +87,7 @@ static Handle acceptClientConnection(int server_handle)
    if(0 > client_handle) {
       /* NOTE: In the real world, this function should be more forgiving.
       For example, the client should be allowed to abort the connection request. */
-      printf("Failed to accept client connection");
+      printf("Failed to accept client connection/n");
       return client_handle;
    }
    
