@@ -44,21 +44,31 @@ static void mock_HandleTimeout(void *instance)
     data->num_of_timeout_events++;
 }
 
-
-static MockData* create_MockData()
+static MockData* create_MockData(const char* file_device)
 {
     int expected_handle = 1;
     int expected_value = 1;
     MockData *data = malloc(sizeof *data);
-    data->handle = open("/dev/null", O_RDWR);
+    data->handle = open(file_device, O_RDWR);
     data->num_of_read_events = 0;
     data->num_of_timeout_events = 0;
 
     data->event_handler.instance = data;
     data->event_handler.get_handle = mock_GetHandleFunc;
     data->event_handler.handle_event = mock_HandleEvent;
+    data->event_handler.handle_timeout_event = mock_HandleTimeout;
 
     return data;
+}
+
+static MockData* create_MockDataReader()
+{
+    return create_MockData("/dev/null");
+}
+
+static MockData* create_MockTimeoutReader()
+{
+    return create_MockData("/dev/tty0");
 }
 
 static EventHandler destroy_MockData(MockData* data)
@@ -71,7 +81,7 @@ void test_Reactor_Register()
 {
     int initial_value = 0;
     int expected_value = 1;
-    MockData* data = create_MockData();
+    MockData* data = create_MockDataReader();
 
     Register(&data->event_handler);
 
@@ -87,7 +97,7 @@ void test_Reactor_ReadEvents()
 {
     int initial_value = 0;
     int expected_value = 1;
-    MockData* data = create_MockData();
+    MockData* data = create_MockDataReader();
 
     Register(&data->event_handler);
 
@@ -107,7 +117,7 @@ void test_Reactor_ReadEvents()
 void test_Reactor_Deregister()
 {
     int expected_value = 1;
-    MockData* data = create_MockData();
+    MockData* data = create_MockDataReader();
 
     Register(&data->event_handler);
 
@@ -128,9 +138,11 @@ void test_Reactor_Deregister()
 void test_Reactor_TimeoutEvent()
 {
     int expected_value = 1;
-    MockData* data = create_MockData();
+    MockData* data = create_MockTimeoutReader();
 
-    //Handle before registering
+    //We register and see that timeout events do not increment
+    Register(&data->event_handler);
+
     HandleEvents();
 
     TEST_ASSERT_EQUAL(expected_value, data->num_of_timeout_events);
@@ -138,11 +150,6 @@ void test_Reactor_TimeoutEvent()
     //Run again. We assume another timeout.
     HandleEvents();
     expected_value++;
-    TEST_ASSERT_EQUAL(expected_value, data->num_of_timeout_events);
-
-    //We register and see that timeout events do not increment
-    Register(&data->event_handler);
-    HandleEvents();
     TEST_ASSERT_EQUAL(expected_value, data->num_of_timeout_events);
 
     //Cleanup

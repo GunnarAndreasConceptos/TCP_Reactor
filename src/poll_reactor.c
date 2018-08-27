@@ -8,7 +8,7 @@
 
 #define MAX_NO_OF_HANDLES 32
 
-#define TIME_OUT_IN_MS 5000
+#define TIME_OUT_IN_MS 2000
 typedef struct
 {
     int is_used;
@@ -28,6 +28,9 @@ static EventHandler *findHandler(int fd);
 
 /* Detect all signalled handles and invoke their corresponding event handlers. */
 static void dispatchSignalledHandles(const struct pollfd *fds, size_t no_of_handles);
+
+/* Find signal handles with timeout events and calls them on a timeout */
+static void dispatchTimeoutEvents(const struct pollfd *fds, size_t no_of_handles);
 
 //Interface implementations
 void Register(EventHandler *handler)
@@ -56,20 +59,19 @@ void HandleEvents(void)
 
     const size_t no_of_handles = buildPollArray(fds);
 
-    //Workaround for testing deregistering. May be better to just add a timeout?
-    if (no_of_handles == 0)
-    {
-        return;
-    }
+    int ret = poll(fds, no_of_handles, TIME_OUT_IN_MS);
 
-    if (0 < poll(fds, no_of_handles, TIME_OUT_IN_MS))
+    if (ret > 0)
     {
         dispatchSignalledHandles(fds, no_of_handles);
     }
+    else if (ret == 0)
+    {
+        dispatchTimeoutEvents(fds, no_of_handles);
+    }
     else
     {
-        //TODO: Poll sees timeouts as a failure. Not sure how to handle timeouts and other failures differently.
-        //printf("Poll failure");
+        printf("Reactor: Poll error!\n");
     }
 }
 
@@ -147,6 +149,21 @@ static EventHandler *findHandler(int fd)
         }
     }
     return matching_handler;
+}
+
+static void dispatchTimeoutEvents(const struct pollfd *fds, size_t no_of_handles)
+{
+    size_t i = 0;
+
+    for (i = 0; i < no_of_handles; ++i)
+    {
+        EventHandler *signalled_handler = findHandler(fds[i].fd);
+        if (NULL != signalled_handler &&
+            NULL != signalled_handler->handle_timeout_event)
+        {
+            signalled_handler->handle_timeout_event(signalled_handler->instance);
+        }
+    }
 }
 
 static void dispatchSignalledHandles(const struct pollfd *fds, size_t no_of_handles)
