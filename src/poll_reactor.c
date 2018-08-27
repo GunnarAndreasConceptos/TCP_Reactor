@@ -1,10 +1,10 @@
 #include "reactor.h"
 #include "reactor_event_loop.h"
 
-#include <stddef.h>
-#include <poll.h>
-#include <stdio.h>
 #include <assert.h>
+#include <poll.h>
+#include <stddef.h>
+#include <stdio.h>
 
 #define MAX_NO_OF_HANDLES 32
 

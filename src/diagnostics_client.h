@@ -11,4 +11,4 @@ DiagnosticsClientPtr createClient(Handle server_handle, const ServerEventNotifie
 
 void destroyClient(DiagnosticsClientPtr client);
 
-#endif //DIAGNOSTICS_CLIENT_H
+#endif  //DIAGNOSTICS_CLIENT_H

@@ -10,9 +10,9 @@ typedef void (*handleEventFunc)(void* instance);
 
 typedef struct
 {
-    void *instance;
+    void* instance;
     getHandleFunc get_handle;
     handleEventFunc handle_event;
 } EventHandler;
 
-#endif //EVENT_HANDLER_H
+#endif  //EVENT_HANDLER_H

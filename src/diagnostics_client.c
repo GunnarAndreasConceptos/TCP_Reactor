@@ -2,11 +2,11 @@
 #include "event_handler.h"
 #include "reactor.h"
 
-#include <sys/socket.h>
 #include <netinet/in.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <unistd.h>
 struct DiagnosticsClient
 {
     Handle client_socket;

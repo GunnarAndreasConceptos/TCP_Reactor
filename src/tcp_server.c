@@ -1,9 +1,9 @@
 #include "tcp_server.h"
 
-#include <sys/socket.h>
 #include <netinet/in.h>
-#include <unistd.h>
 #include <stdio.h>
+#include <sys/socket.h>
+#include <unistd.h>
 
 int createServerSocket(unsigned int tcp_port)
 {

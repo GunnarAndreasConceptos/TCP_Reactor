@@ -3,4 +3,4 @@
 
 void HandleEvents(void);
 
-#endif //REACTOR_EVENT_LOOP_H
+#endif  //REACTOR_EVENT_LOOP_H

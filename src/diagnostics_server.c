@@ -1,12 +1,12 @@
 #include "diagnostics_server.h"
-#include "event_handler.h"
 #include "diagnostics_client.h"
+#include "event_handler.h"
+#include "reactor.h"
 #include "server_event_notifier.h"
 #include "tcp_server.h"
-#include "reactor.h"
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define MAX_NO_OF_CLIENTS 19
 

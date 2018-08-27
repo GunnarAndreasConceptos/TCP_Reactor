@@ -1,9 +1,9 @@
 #include "diagnostics_server.h"
 #include "reactor_event_loop.h"
 
+#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <getopt.h>
 
 #define DEFAULT_PORT 5045
 
@@ -24,11 +24,11 @@ int parseInputOptions(int argc, char *argv[], InputOptions *options)
         return -1;
     }
 
-    const char* valid_option = "p:";
+    const char *valid_option = "p:";
     int num_of_options_parsed = 0;
     int c;
 
-    while((c = getopt(argc, argv, valid_option)) != -1)
+    while ((c = getopt(argc, argv, valid_option)) != -1)
     {
         switch (c)
         {
@@ -62,11 +62,9 @@ int main(int argc, char *argv[])
         printf("Failed to create the server");
         exit(EXIT_FAILURE);
     }
-    
-
 
     /* Enter the eternal reactive event loop. */
-    while(1)
+    while (1)
     {
         HandleEvents();
     }
