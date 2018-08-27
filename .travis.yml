@@ -1,5 +1,6 @@
 language: ruby c
-install: true
+install: 
+- gem install ceedling
 script: 
 - make
 - ./run_tests.sh
