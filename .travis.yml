@@ -1,1 +1,5 @@
 language: c
+install: true
+script: 
+- make
+- ./tests/ceedling
