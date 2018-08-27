@@ -1,5 +1,8 @@
-language: c
+language: ruby c
 install: true
 script: 
 - make
 - ./run_tests.sh
+
+rvm:
+  - "2.4"
