@@ -39,7 +39,7 @@ static MockData* create_MockData(int initial_value)
 {
     int expected_handle = 1;
     int expected_value = 1;
-    MockData *data = malloc(sizeof data);
+    MockData *data = malloc(sizeof *data);
     data->handle = open("/dev/null", O_RDWR);
     data->value = initial_value;
 
