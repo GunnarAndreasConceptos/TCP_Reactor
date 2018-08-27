@@ -1,2 +1,5 @@
+pwd
 cd test
-ceedling
+pwd
+ls
+./ceedling
