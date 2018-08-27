@@ -68,7 +68,8 @@ void HandleEvents(void)
     }
     else
     {
-        printf("Poll failure");
+        //TODO: Poll sees timeouts as a failure. Not sure how to handle timeouts and other failures differently.
+        //printf("Poll failure");
     }
 }
 

@@ -3,7 +3,7 @@ TARGET   = tcp_reactor
 
 CC       = gcc
 # compiling flags here
-CFLAGS   = -std=c99 -Wall -I.
+CFLAGS   = -std=c99 -Wall -I. -g
 
 LINKER   = gcc
 # linking flags here
