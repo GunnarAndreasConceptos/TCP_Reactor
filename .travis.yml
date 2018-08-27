@@ -1,9 +1,11 @@
 language: ruby c
-install: 
+install:
 - gem install ceedling
-script: 
+script:
 - make
-- ./run_tests.sh
-
+- "./run_tests.sh"
 rvm:
-  - "2.4"
+- '2.4'
+notifications:
+  slack:
+    secure: PLxdMHXQJQH0gU4GTM/yrzynwFzht9OO97oBPrBY5dBxDIrG6caMNp5hjUuIUY9y9NbdZuyTeoEPXOMAshVe/4XTt10oGw+BqGn+4u0WMKXNnqezpCTLrUJTXIsrdGc3rQyVf0NijojI3VQX5h7u9KhrJeU6buTrEpNyu587zthDB31ASdIgnKkILbHZkfhGKKJWsoykblHvj6dBwg1pM4251+y+2AIwhIJZcW3onVkLjQYju/pWH+uk+mDq/JMdqHgGXv4n2638wZFZaAKADtpHgTF8bt0op/u3sdAfYabb6GQx4BxudDPVDNZ0AeWGFzYmuUPYy4Vv20Jgh/325OnJEDyR498Xi/ZwxmpZBnkoSqhV3nKSJKsLVwRGluqI1Nc7e+yjFsFCkHI35BQemWAJnfFUdt1+g/1fcK8MZH483l+rQvr/u72w/x/ss/EDIv6Ukt4Nju93lh9/OvF/NZU5+6HEApTu0yI82a8Juqxynl/smo0svGBiTkBKoeUmrXQx1JP5xT37uEA33nfK8J8v4ZrZnV/AHiLwQlbyO7PokgRmF9a0tgC5tJz94BatgWSsIDNeESIbB6Z5lvQsSOwKUlN+4XOOF42/xpFJp/u1R6fgDinB8e2R/xG1qox7x4nqnBtmpZooMgoa+uUDblWVoPhvF3KB32uMlBtvqlE=
