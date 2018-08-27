@@ -18,19 +18,19 @@ typedef struct
 
 static HandlerRegistration registered_handlers[MAX_NO_OF_HANDLES];
 
-static int addToRegistry(EventHandler* handler);
+static int addToRegistry(EventHandler *handler);
 static int removeFromRegistry(EventHandler *handler);
 
 /* We copy all registered event handlers to a poll array */
-static size_t buildPollArray(struct pollfd* fds);
+static size_t buildPollArray(struct pollfd *fds);
 
-static EventHandler* findHandler(int fd);
+static EventHandler *findHandler(int fd);
 
 /* Detect all signalled handles and invoke their corresponding event handlers. */
-static void dispatchSignalledHandles(const struct pollfd* fds, size_t no_of_handles);
+static void dispatchSignalledHandles(const struct pollfd *fds, size_t no_of_handles);
 
 //Interface implementations
-void Register(EventHandler* handler)
+void Register(EventHandler *handler)
 {
     assert(NULL != handler);
 
@@ -40,7 +40,7 @@ void Register(EventHandler* handler)
     }
 }
 
-void Unregister(EventHandler* handler)
+void Unregister(EventHandler *handler)
 {
     assert(NULL != handler);
 
@@ -74,7 +74,7 @@ void HandleEvents(void)
 }
 
 //local functions
-static int addToRegistry(EventHandler* handler)
+static int addToRegistry(EventHandler *handler)
 {
     int is_registered = 0;
     int i = 0;
@@ -84,7 +84,7 @@ static int addToRegistry(EventHandler* handler)
         //We find a free position
         if (0 == registered_handlers[i].is_used)
         {
-            HandlerRegistration* free_entry = &registered_handlers[i];
+            HandlerRegistration *free_entry = &registered_handlers[i];
 
             free_entry->handler = *handler;
             free_entry->fd.fd = handler->get_handle(handler->instance);
@@ -99,15 +99,15 @@ static int addToRegistry(EventHandler* handler)
     return is_registered;
 }
 
-static int removeFromRegistry(EventHandler* handler)
+static int removeFromRegistry(EventHandler *handler)
 {
     int i = 0;
     int node_removed = 0;
 
     for (i = 0; (i < MAX_NO_OF_HANDLES) && (0 == node_removed); i++)
     {
-        if (registered_handlers[i].is_used && 
-        registered_handlers[i].handler.instance == handler->instance)
+        if (registered_handlers[i].is_used &&
+            registered_handlers[i].handler.instance == handler->instance)
         {
             registered_handlers[i].is_used = 0;
             node_removed = 1;
@@ -117,7 +117,7 @@ static int removeFromRegistry(EventHandler* handler)
     return node_removed;
 }
 
-static size_t buildPollArray(struct pollfd* fds)
+static size_t buildPollArray(struct pollfd *fds)
 {
     int i = 0;
     size_t no_of_copied_handles = 0;
@@ -133,15 +133,15 @@ static size_t buildPollArray(struct pollfd* fds)
     return no_of_copied_handles;
 }
 
-static EventHandler * findHandler(int fd)
+static EventHandler *findHandler(int fd)
 {
-    EventHandler* matching_handler = NULL;
+    EventHandler *matching_handler = NULL;
     int i = 0;
 
     for (i = 0; (i < MAX_NO_OF_HANDLES) && (NULL == matching_handler); ++i)
     {
         if (registered_handlers[i].is_used &&
-        (registered_handlers[i].fd.fd == fd))
+            (registered_handlers[i].fd.fd == fd))
         {
             matching_handler = &registered_handlers[i].handler;
         }
@@ -157,8 +157,8 @@ static void dispatchSignalledHandles(const struct pollfd *fds, size_t no_of_hand
     {
         if ((POLLIN | POLLERR) & fds[i].revents)
         {
-            EventHandler* signalled_handler = findHandler(fds[i].fd);
-            
+            EventHandler *signalled_handler = findHandler(fds[i].fd);
+
             if (NULL != signalled_handler)
             {
                 signalled_handler->handle_event(signalled_handler->instance);

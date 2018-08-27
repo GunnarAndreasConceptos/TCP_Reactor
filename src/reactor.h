@@ -3,7 +3,7 @@
 
 #include "event_handler.h"
 
-void Register(EventHandler* handler);
-void Unregister(EventHandler* handler);
+void Register(EventHandler *handler);
+void Unregister(EventHandler *handler);
 
 #endif

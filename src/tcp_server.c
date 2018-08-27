@@ -20,23 +20,22 @@ int createServerSocket(unsigned int tcp_port)
     address.sin_port = htons(tcp_port);
     address.sin_addr.s_addr = htonl(INADDR_ANY);
     socklen_t len = sizeof(address);
-    if(bind(server_handle, (struct sockaddr*) &address, len) != 0) 
+    if (bind(server_handle, (struct sockaddr *)&address, len) != 0)
     {
         printf("bind() failed");
         return 0;
     }
 
-    if(listen(server_handle, SOMAXCONN) != 0) 
+    if (listen(server_handle, SOMAXCONN) != 0)
     {
         printf("listen() failed");
         return 0;
     }
-   
+
     return server_handle;
 }
 
 void disposeServerSocket(int server_socket)
 {
-    (void) close(server_socket);
+    (void)close(server_socket);
 }
-

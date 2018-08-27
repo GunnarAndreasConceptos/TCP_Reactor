@@ -5,9 +5,9 @@
 #include "server_event_notifier.h"
 
 //Incomplete type to hide struct internals
-typedef struct DiagnosticsClient* DiagnosticsClientPtr;
+typedef struct DiagnosticsClient *DiagnosticsClientPtr;
 
-DiagnosticsClientPtr createClient(Handle server_handle, const ServerEventNotifier* event_notifier);
+DiagnosticsClientPtr createClient(Handle server_handle, const ServerEventNotifier *event_notifier);
 
 void destroyClient(DiagnosticsClientPtr client);
 

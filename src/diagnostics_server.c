@@ -22,22 +22,22 @@ struct DiagnosticsServer
 /* Function declarations */
 static void deletaAllClients(DiagnosticsServerPtr server);
 static int matchControlledClientByPointer(const DiagnosticsServerPtr server,
-                                            const DiagnosticsClientPtr client_to_matc);
+                                          const DiagnosticsClientPtr client_to_matc);
 static int findFreeClientSlot(const DiagnosticsServerPtr server);
 static int findMatchingClientSlot(const DiagnosticsServerPtr server,
-                                    const DiagnosticsClientPtr client);
-static Handle getServerSocket(void* instance);
-static void handleConnectRequest(void* instance);
-static void onClientClosed(void* server, void* closed_client);
+                                  const DiagnosticsClientPtr client);
+static Handle getServerSocket(void *instance);
+static void handleConnectRequest(void *instance);
+static void onClientClosed(void *server, void *closed_client);
 
 /* EventHandler implementations */
-static Handle getServerSocket(void* instance)
+static Handle getServerSocket(void *instance)
 {
     const DiagnosticsServerPtr server = instance;
     return server->listening_socket;
 }
 
-static void handleConnectRequest(void* instance)
+static void handleConnectRequest(void *instance)
 {
     DiagnosticsServerPtr server = instance;
     const int free_slot = findFreeClientSlot(server);
@@ -63,7 +63,7 @@ static void handleConnectRequest(void* instance)
 * This function is invoked as a callback from the client representation 
 * in case it detects a disconnect on TCP level. 
 */
-static void onClientClosed(void* server, void* closed_client)
+static void onClientClosed(void *server, void *closed_client)
 {
     DiagnosticsServerPtr server_instance = server;
     DiagnosticsClientPtr client_instance = closed_client;
@@ -83,7 +83,7 @@ static void onClientClosed(void* server, void* closed_client)
 DiagnosticsServerPtr createServer(unsigned int tcp_port)
 {
     DiagnosticsServerPtr new_server = malloc(sizeof *new_server);
-    
+
     if (new_server != NULL)
     {
         int i = 0;
@@ -133,7 +133,7 @@ static void deletaAllClients(DiagnosticsServerPtr server)
 * Returns -1 if no match was found
 */
 static int matchControlledClientByPointer(const DiagnosticsServerPtr server,
-                                            const DiagnosticsClientPtr client_to_match)
+                                          const DiagnosticsClientPtr client_to_match)
 {
     int client_slot = -1;
     int slot_found = 0;
@@ -157,7 +157,7 @@ static int findFreeClientSlot(const DiagnosticsServerPtr server)
 }
 
 static int findMatchingClientSlot(const DiagnosticsServerPtr server,
-                                    const DiagnosticsClientPtr client)
-{  
-   return matchControlledClientByPointer(server, client);
+                                  const DiagnosticsClientPtr client)
+{
+    return matchControlledClientByPointer(server, client);
 }

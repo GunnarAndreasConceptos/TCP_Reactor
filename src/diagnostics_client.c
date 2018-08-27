@@ -18,16 +18,16 @@ struct DiagnosticsClient
 #define MAX_MESSAGE_SIZE 1024
 
 static Handle acceptClientConnection(int server_handle);
-static Handle getClientSocket(void* instance);
+static Handle getClientSocket(void *instance);
 static void handleReadEvent(void *instance);
 
-static Handle getClientSocket(void* instance)
+static Handle getClientSocket(void *instance)
 {
     const DiagnosticsClientPtr client = instance;
     return client->client_socket;
 }
 
-static void handleReadEvent(void* instance)
+static void handleReadEvent(void *instance)
 {
     const DiagnosticsClientPtr client = instance;
     char diagnostic_message[MAX_MESSAGE_SIZE] = {0};
@@ -36,7 +36,7 @@ static void handleReadEvent(void* instance)
 
     if (0 < recieve_result)
     {
-        (void) printf("Client: Diagnostics received - %s\n", diagnostic_message);
+        (void)printf("Client: Diagnostics received - %s\n", diagnostic_message);
     }
     else
     {
@@ -45,7 +45,7 @@ static void handleReadEvent(void* instance)
 }
 
 //Implemention of ADT functions
-DiagnosticsClientPtr createClient(Handle server_handle, const ServerEventNotifier* event_notifier)
+DiagnosticsClientPtr createClient(Handle server_handle, const ServerEventNotifier *event_notifier)
 {
     if (NULL == event_notifier)
     {
@@ -79,19 +79,20 @@ void destroyClient(DiagnosticsClientPtr client)
 static Handle acceptClientConnection(int server_handle)
 {
     struct sockaddr_in client_address = {0};
-   
-   socklen_t address_size = sizeof client_address;
 
-   const Handle client_handle = accept(server_handle, (struct sockaddr*) &client_address, &address_size);
-   
-   if(0 > client_handle) {
-      /* NOTE: In the real world, this function should be more forgiving.
+    socklen_t address_size = sizeof client_address;
+
+    const Handle client_handle = accept(server_handle, (struct sockaddr *)&client_address, &address_size);
+
+    if (0 > client_handle)
+    {
+        /* NOTE: In the real world, this function should be more forgiving.
       For example, the client should be allowed to abort the connection request. */
-      printf("Failed to accept client connection/n");
-      return client_handle;
-   }
-   
-   (void) printf("Client: New connection created on IP-address %X\n", ntohl(client_address.sin_addr.s_addr));
-   
-   return client_handle;
+        printf("Failed to accept client connection/n");
+        return client_handle;
+    }
+
+    (void)printf("Client: New connection created on IP-address %X\n", ntohl(client_address.sin_addr.s_addr));
+
+    return client_handle;
 }

@@ -9,19 +9,19 @@
 * This function is invoked as a callback in case a disconnect on 
 * TCP level is detected.
 */
-typedef void (*OnClientClosedFunc)(void* server,
-                                   void* closed_client);
+typedef void (*OnClientClosedFunc)(void *server,
+                                   void *closed_client);
 
 typedef struct
 {
-   /* An instance of the server owning the client.
+    /* An instance of the server owning the client.
       This instance shall be passed as an argument to the callbacks. */
-   void* server;
+    void *server;
 
-   /* Specifies a callback to be used by the client to 
-      inform its server about a closed connection. */   
-   OnClientClosedFunc on_client_closed;
-   
+    /* Specifies a callback to be used by the client to 
+      inform its server about a closed connection. */
+    OnClientClosedFunc on_client_closed;
+
 } ServerEventNotifier;
 
 #endif
