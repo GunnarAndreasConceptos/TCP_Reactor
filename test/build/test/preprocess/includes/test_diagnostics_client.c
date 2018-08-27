@@ -1,6 +1,0 @@
----
-- unity.h
-- diagnostics_client.h
-- build/temp/_test_diagnostics_client.c
-- "../src/poll_reactor.c"
-- "@@@@poll_reactor.c"
