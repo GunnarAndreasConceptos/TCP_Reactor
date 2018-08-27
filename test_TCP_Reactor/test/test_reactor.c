@@ -87,7 +87,7 @@ void test_Reactor_Deregister()
 
     Unregister(&data->event_handler);
 
-    //ISSUE: This waits forever because there is nothing to poll..
+    //Expect this will just timeout and not do anything
     HandleEvents();
     //Ensured that the value has not changed since we have deregistered
     TEST_ASSERT_EQUAL(expected_value, data->value);

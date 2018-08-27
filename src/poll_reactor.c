@@ -8,10 +8,7 @@
 
 #define MAX_NO_OF_HANDLES 32
 
-#ifndef INFTIM
-#define INFTIM -1
-#endif
-
+#define TIME_OUT_IN_MS 5000
 typedef struct
 {
     int is_used;
@@ -65,7 +62,7 @@ void HandleEvents(void)
         return;
     }
 
-    if (0 < poll(fds, no_of_handles, INFTIM))
+    if (0 < poll(fds, no_of_handles, TIME_OUT_IN_MS))
     {
         dispatchSignalledHandles(fds, no_of_handles);
     }
