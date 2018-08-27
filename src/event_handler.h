@@ -7,12 +7,14 @@
 through function pointers with the following signatures: */
 typedef Handle (*getHandleFunc)(void* instance);
 typedef void (*handleEventFunc)(void* instance);
+typedef void (*handleTimeoutFunc)(void* instance);
 
 typedef struct
 {
     void* instance;
     getHandleFunc get_handle;
     handleEventFunc handle_event;
+    handleTimeoutFunc handle_timeout_event;
 } EventHandler;
 
 #endif  //EVENT_HANDLER_H
