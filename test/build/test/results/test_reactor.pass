@@ -1,0 +1,24 @@
+---
+:source:
+  :path: test
+  :file: test_reactor.c
+:successes:
+- :test: test_Reactor_Register
+  :line: 59
+  :message: ''
+- :test: test_Reactor_Deregister
+  :line: 76
+  :message: ''
+:failures: []
+:ignores: []
+:counts:
+  :total: 2
+  :passed: 2
+  :failed: 0
+  :ignored: 0
+:stdout:
+- 'Reactor: Added handle with ID = 3'
+- 'Reactor: Removed event handler with ID = 3'
+- 'Reactor: Added handle with ID = 3'
+- 'Reactor: Removed event handler with ID = 3'
+:time: 0.0008878400003595743

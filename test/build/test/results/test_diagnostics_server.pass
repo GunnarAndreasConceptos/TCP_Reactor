@@ -1,0 +1,19 @@
+---
+:source:
+  :path: test
+  :file: test_diagnostics_server.c
+:successes:
+- :test: test_DiagnosticsServer_CreateServer
+  :line: 10
+  :message: ''
+:failures: []
+:ignores: []
+:counts:
+  :total: 1
+  :passed: 1
+  :failed: 0
+  :ignored: 0
+:stdout:
+- 'bind() failedReactor: Added handle with ID = 0'
+- 'Reactor: Removed event handler with ID = 0'
+:time: 0.0008637089995318092
