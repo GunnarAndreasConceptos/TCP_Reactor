@@ -27,7 +27,7 @@
             "name": "(gdb) reactor_test",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/test_TCP_Reactor/build/test/out/test_reactor.out",
+            "program": "${workspaceFolder}/test/build/test/out/test_reactor.out",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

@@ -88,7 +88,7 @@ static Handle acceptClientConnection(int server_handle)
     {
         /* NOTE: In the real world, this function should be more forgiving.
       For example, the client should be allowed to abort the connection request. */
-        printf("Failed to accept client connection/n");
+        printf("Failed to accept client connection\n");
         return client_handle;
     }
 
